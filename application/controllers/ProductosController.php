@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Welcome extends CI_Controller {
+class ProductosController extends CI_Controller {
 
 	/**
 	 * Index Page for this controller.
@@ -20,9 +20,66 @@ class Welcome extends CI_Controller {
 	 */
 	public function index()
 	{
-		$this->load->database();
-		
 
-		$this->load->view('welcome_message');
+		$this->load->database();
+		$this->load->model('ProductosModel');
+		$data['query'] = $this->ProductosModel->obtenerProductos();
+		$this->load->helper('form');
+
+		$this->load->view('ProductosView',$data);
+	}
+
+	public function aumentarCantidad(){
+		$this->load->model('ProductosModel');
+		$this->load->helper('url');
+
+		$id = $this->input->post('id');
+
+		$sumando = 0.5;
+
+		$nuevacantidad = $this->ProductosModel->obtenerCantidad($id) + $sumando;
+
+		$this->ProductosModel->actualizarCantidad($id,$nuevacantidad);
+
+		redirect('ProductosController');
+
+
+	}
+
+	public function disminuirCantidad(){
+		$this->load->model('ProductosModel');
+		$this->load->helper('url');
+
+		$id = $this->input->post('id');
+
+		$sustraendo = 0.5;
+
+		$nuevacantidad = $this->ProductosModel->obtenerCantidad($id) - $sustraendo;
+
+		$this->ProductosModel->actualizarCantidad($id,$nuevacantidad);
+
+		redirect('ProductosController');
+
+	}
+
+	public function actualizarCantidad(){
+		$this->load->model('ProductosModel');
+		$this->load->helper('url');
+
+		$id = $this->input->post('id');
+
+		$masomenos = $this->input->post('botonmasomenos');
+
+		if ($masomenos != "Menos" ) $operando = +0.5;
+		else $operando = -0.5;
+
+		$numero = 0.5;
+
+		$nuevacantidad = $this->ProductosModel->obtenerCantidad($id) + $operando;
+
+		$this->ProductosModel->actualizarCantidad($id,$nuevacantidad);
+
+		redirect('');
+
 	}
 }

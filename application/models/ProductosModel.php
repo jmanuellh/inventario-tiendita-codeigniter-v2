@@ -11,25 +11,35 @@ class ProductosModel extends CI_Model {
                 return $query->result();
         }
 
-        public function aumentarCantidad()
+        public function obtenerCantidad($id){
+                $query = $this->db->get_where('Productos', array('id' => $id));
+
+                //return 0;
+
+                return $query->result()[0]->Cantidad;
+        }
+
+        public function actualizarCantidad($id,$cantidad)
         {
+                /*
                 $this->title    = $_POST['title']; // please read the below note
                 $this->content  = $_POST['content'];
                 $this->date     = time();
 
                 $this->db->insert('entries', $this);
-                $this->db->update('Productos', $object);
+
+                */
+
+                $data = array(
+                        'Cantidad' => $cantidad
+                );
+                
+                $this->db->where('Id', $id);
+                $this->db->update('Productos', $data);
 
 
         }
 
-        public function disminuirCantidad()
-        {
-                $this->title    = $_POST['title'];
-                $this->content  = $_POST['content'];
-                $this->date     = time();
-
-                $this->db->update('entries', $this, array('id' => $_POST['id']));
-        }
+        
 
 }
