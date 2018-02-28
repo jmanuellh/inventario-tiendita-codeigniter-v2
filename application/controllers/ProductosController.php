@@ -20,8 +20,7 @@ class ProductosController extends CI_Controller {
 	 */
 	public function index()
 	{
-
-		$this->load->database();
+		$this->load->helper('url');
 		$this->load->model('ProductosModel');
 		$data['query'] = $this->ProductosModel->obtenerProductos();
 		$this->load->helper('form');
@@ -63,14 +62,15 @@ class ProductosController extends CI_Controller {
 	}
 
 	public function actualizarCantidad(){
-		$this->load->model('ProductosModel');
 		$this->load->helper('url');
+		$this->load->model('ProductosModel');
 
 		$id = $this->input->post('id');
+		echo($id);
 
-		$masomenos = $this->input->post('botonmasomenos');
+		$signo = $this->input->post('signo');
 
-		if ($masomenos != "Menos" ) $operando = +0.5;
+		if ($signo != "Menos" ) $operando = +0.5;
 		else $operando = -0.5;
 
 		$numero = 0.5;
@@ -79,7 +79,25 @@ class ProductosController extends CI_Controller {
 
 		$this->ProductosModel->actualizarCantidad($id,$nuevacantidad);
 
-		redirect('');
+		redirect('ProductosController');
 
+	}
+
+	public function actualizarCantidadAjax(){
+		$this->load->helper('url');
+		$this->load->model('ProductosModel');
+
+		$id = $this->input->post('id');
+
+		$signo = $this->input->post('signo');
+
+		if ($signo != "menos" ) $operando = +0.5;
+		else $operando = -0.5;
+
+		$numero = 0.5;
+
+		$nuevacantidad = $this->ProductosModel->obtenerCantidad($id) + $operando;
+
+		echo $this->ProductosModel->actualizarCantidad($id,$nuevacantidad);
 	}
 }
