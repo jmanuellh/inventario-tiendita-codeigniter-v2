@@ -12,4 +12,4 @@ Servidor: Apache 2.4
 
 pagina prueba:
 <br>
-<a href="http://jmanuellh.16mb.com/inventario-tiendita-codeigniter-v2/">http://jmanuellh.16mb.com/inventario-tiendita-codeigniter-v2/<a>
+<a href="http://jmanuellh.16mb.com/proyectos/inventario-tiendita-codeigniter-v2/">http://jmanuellh.16mb.com/proyectos/inventario-tiendita-codeigniter-v2/<a>
